@@ -1,0 +1,250 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.openStep('C:/Tor/ifeye25_hook_only_partitioned.step', scaleFromFile=OFF)
+mdb.models['Model-1'].PartFromGeometryFile(combine=False, dimensionality=
+    THREE_D, geometryFile=mdb.acis, name='ifeye25_hook_only_partitioned', type=
+    DEFORMABLE_BODY)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=108.0, principalPlane=XZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=-10.0, principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=0.0, principalPlane=XYPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=108.0, principalPlane=XZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=-10.0, principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=10.0, principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[5], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#480 ]', ), ))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[5], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#6c0 ]', ), ))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].deleteFeatures((
+    'Datum plane-6', 'Datum plane-1', 'Datum plane-2', 'Datum plane-3', 
+    'Datum plane-4', 'Datum plane-5'))
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=108.0, principalPlane=XZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=10.0, principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].DatumPlaneByPrincipalPlane(
+    offset=-10.0, principalPlane=YZPLANE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[8], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#6c0 ]', ), ))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[8], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#1ec0 ]', ), ))
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[8], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#ec04 ]', ), ))
+#* Feature creation failed.
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].PartitionFaceByDatumPlane(
+    datumPlane=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].datums[8], 
+    faces=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].faces.getSequenceFromMask(
+    ('[#ec06 ]', ), ))
+#* Feature creation failed.
+mdb.models['Model-1'].Material(name='Krokmaterialet')
+mdb.models['Model-1'].materials['Krokmaterialet'].Elastic(table=((210000000.0, 
+    0.3), ))
+mdb.models['Model-1'].materials['Krokmaterialet'].elastic.setValues(table=((
+    210000.0, 0.3), ))
+mdb.models['Model-1'].HomogeneousSolidSection(material='Krokmaterialet', name=
+    'Solid_section', thickness=None)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].Set(cells=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), name='Set-1')
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].SectionAssignment(
+    offset=0.0, offsetField='', offsetType=MIDDLE_SURFACE, region=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].sets['Set-1'], 
+    sectionName='Solid_section', thicknessAssignment=FROM_SECTION)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].deleteFeatures((
+    'Partition face-1', 'Datum plane-1', 'Datum plane-2', 'Datum plane-3'))
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].setElementType(
+    elemTypes=(ElemType(elemCode=C3D20R, elemLibrary=STANDARD), ElemType(
+    elemCode=C3D15, elemLibrary=STANDARD), ElemType(elemCode=C3D10, 
+    elemLibrary=STANDARD)), regions=(
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), ))
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].setMeshControls(
+    elemShape=TET, regions=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].cells.getSequenceFromMask(
+    ('[#1 ]', ), ), technique=FREE)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].seedPart(
+    deviationFactor=0.1, minSizeFactor=0.1, size=6.0)
+mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'].generateMesh()
+mdb.models['Model-1'].rootAssembly.DatumCsysByDefault(CARTESIAN)
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name=
+    'ifeye25_hook_only_partitioned-1', part=
+    mdb.models['Model-1'].parts['ifeye25_hook_only_partitioned'])
+mdb.models['Model-1'].rootAssembly.Set(name='Set-1', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['ifeye25_hook_only_partitioned-1'].vertices.getSequenceFromMask(
+    ('[#2000000 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Initial', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='Fix_XYZ', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-1'], u1=SET, u2=SET, 
+    u3=SET, ur1=UNSET, ur2=UNSET, ur3=UNSET)
+mdb.models['Model-1'].rootAssembly.Set(name='Set-2', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['ifeye25_hook_only_partitioned-1'].vertices.getSequenceFromMask(
+    ('[#40000 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Initial', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='Fix_XZ', 
+    region=mdb.models['Model-1'].rootAssembly.sets['Set-2'], u1=SET, u2=UNSET, 
+    u3=SET, ur1=UNSET, ur2=UNSET, ur3=UNSET)
+mdb.models['Model-1'].rootAssembly.Set(name='a', vertices=
+    mdb.models['Model-1'].rootAssembly.instances['ifeye25_hook_only_partitioned-1'].vertices.getSequenceFromMask(
+    ('[#0:2 #8000000 ]', ), ))
+mdb.models['Model-1'].DisplacementBC(amplitude=UNSET, createStepName='Initial', 
+    distributionType=UNIFORM, fieldName='', localCsys=None, name='Fix_z', 
+    region=mdb.models['Model-1'].rootAssembly.sets['a'], u1=UNSET, u2=UNSET, 
+    u3=SET, ur1=UNSET, ur2=UNSET, ur3=UNSET)
+mdb.models['Model-1'].StaticStep(name='Load', previous='Initial')
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-1', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['ifeye25_hook_only_partitioned-1'].faces.getSequenceFromMask(
+    ('[#28000030 #30 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Load', directionVector=((
+    0.0, 0.0, 0.0), (0.0, -1.0, 0.0)), distributionType=UNIFORM, field='', 
+    localCsys=None, magnitude=12.386, name='Load-Bottom', region=
+    mdb.models['Model-1'].rootAssembly.surfaces['Surf-1'], traction=GENERAL)
+mdb.models['Model-1'].rootAssembly.Surface(name='Surf-2', side1Faces=
+    mdb.models['Model-1'].rootAssembly.instances['ifeye25_hook_only_partitioned-1'].faces.getSequenceFromMask(
+    ('[#6c0 ]', ), ))
+mdb.models['Model-1'].SurfaceTraction(createStepName='Load', directionVector=((
+    0.0, 0.0, 0.0), (0.0, 1.0, 0.0)), distributionType=UNIFORM, field='', 
+    localCsys=None, magnitude=15.924, name='Load-Top', region=
+    mdb.models['Model-1'].rootAssembly.surfaces['Surf-2'], traction=GENERAL)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-1', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=
+    ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, 
+    waitMinutes=0)
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['Job-1'].submit(consistencyChecking=OFF)
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Runde2', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=
+    ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, 
+    waitMinutes=0)
+mdb.jobs['Runde2'].submit(consistencyChecking=OFF)
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].loads['Load-Top'].setValues(magnitude=12.386)
+del mdb.jobs['Job-1']
+del mdb.jobs['Runde2']
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='10_10', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=
+    ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, 
+    waitMinutes=0)
+mdb.jobs['10_10'].submit(consistencyChecking=OFF)
+mdb.models['Model-1'].loads['Load-Top'].setValues(magnitude=15.0)
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='10_2', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=
+    ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, 
+    waitMinutes=0)
+mdb.jobs['10_2'].submit(consistencyChecking=OFF)
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].loads['Load-Top'].setValues(magnitude=15.924)
+del mdb.jobs['10_2']
+del mdb.jobs['10_10']
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='Model-1', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Krok-endelig', nodalOutputPrecision=
+    SINGLE, numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, 
+    resultsFormat=ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=
+    0, waitMinutes=0)
+mdb.jobs['Krok-endelig'].submit(consistencyChecking=OFF)
+# Save by torja on 2026_10_29-12.13.05; build 2022 2021_09_15-19.57.30 176069
