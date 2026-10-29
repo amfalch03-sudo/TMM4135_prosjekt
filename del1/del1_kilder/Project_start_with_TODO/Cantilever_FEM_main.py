@@ -10,7 +10,7 @@ import fem_models
 import copy
 
 # Element Type
-numElementNodes = 3  # Valid numbers 3, 4, 6, 9
+numElementNodes = 4  # Valid numbers 3, 4, 6, 9
 
 # Number of nodes: Should be odd numbers in order to handle 9 node quad and 6 node triangle
 numNodesX = 15
