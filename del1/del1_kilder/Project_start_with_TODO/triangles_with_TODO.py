@@ -161,6 +161,13 @@ def zeta_partials_x_and_y(ex: list[float], ey: list[float]) -> tuple[Array2D, Ar
     zeta_py = np.zeros(3)  # Partial derivative with respect to y
 
     # TODO: fill out missing parts (or reformulate completely)
+    zeta_px[0] = (tmp[1,2] - tmp[2,2])/A2
+    zeta_px[1] = (tmp[2,2] - tmp[0,2])/A2
+    zeta_px[2] = (tmp[0,2] - tmp[1,2])/A2
+
+    zeta_py[0] = (tmp[2,1] - tmp[1,1])/A2
+    zeta_py[1] = (tmp[0,1] - tmp[2,1])/A2
+    zeta_py[2] = (tmp[1,1] - tmp[0,1])/A2
 
     return zeta_px, zeta_py
 
@@ -183,6 +190,11 @@ def tri6_shape_functions(zeta: Sequence[float]) -> Array2D:
     N6 = np.zeros(6)
 
     # TODO: fill out missing parts (or reformulate completely)
+    for i in range(3):
+        j = cyclic_ijk[i+1]
+
+        N6[i] = zeta[i]*(zeta[i] - 1/2)*2
+        N6[i+3] = zeta[i]*zeta[j]*4
 
     return N6
 
@@ -200,6 +212,12 @@ def tri6_shape_function_partials_x_and_y(
     cyclic_ijk = [0, 1, 2, 0, 1]  # Cyclic permutation of the nodes i,j,k
 
     # TODO: fill out missing parts (or reformulate completely)
+    for i in range(3):
+        j = cyclic_ijk[i+1]
+        N6_px[i] = (4*zeta[i] - 1)*zeta_px[i]
+        N6_px[i+3] = (zeta[j]*4)*zeta_px[i]
+        N6_py[i] = (4*zeta[i] - 1)*zeta_px[i]
+        N6_px[i+3] = (zeta[j]*4)*zeta_py[i]
 
     return N6_px, N6_py
 
@@ -210,9 +228,16 @@ def tri6_Bmatrix(zeta: Sequence[float], ex: list[float], ey: list[float]) -> Arr
     Bmatrix = np.zeros((3, 12))
 
     # TODO: fill out missing parts (or reformulate completely)
+    
+    for j in range(11):
+        Bmatrix[0,j] = nx[j]
+        Bmatrix[2,j] = ny[j]
+        Bmatrix[1,j+1] = ny[j]
+        Bmatrix[2,j+1] = nx[j]
 
     return Bmatrix
 
+print(tri6_Bmatrix([0.2, 0.3, 0.5],))
 
 def tri6_Kmatrix(
     ex: list[float],
