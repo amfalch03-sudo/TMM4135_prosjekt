@@ -1,0 +1,34 @@
+Analysis initiated from SIMULIA established products
+Abaqus JOB 10_10
+Abaqus 2022
+Socket error: [Errno 11001] getaddrinfo failed
+Abaqus License Manager checked out the following licenses:
+Abaqus/Standard checked out 5 tokens from Flexnet server abaqus.lisens.ntnu.no.
+<370 out of 1000 licenses remain available>.
+Begin Analysis Input File Processor
+29.10.2026 11:44:03
+Run pre.exe
+
+ ***WARNING: Interactive messaging has been requested for this analysis run, 
+             but initialization of the messaging system has failed.  Therefore 
+             no messages will be sent to Abaqus/CAE for this phase of the 
+             analysis.
+29.10.2026 11:44:11
+End Analysis Input File Processor
+Begin Abaqus/Standard Analysis
+29.10.2026 11:44:11
+Run standard.exe
+
+ ***WARNING: Interactive messaging has been requested for this analysis run, 
+             but initialization of the messaging system has failed.  Therefore 
+             no messages will be sent to Abaqus/CAE for this phase of the 
+             analysis.
+29.10.2026 11:44:21
+End Abaqus/Standard Analysis
+Begin SIM Wrap-up
+29.10.2026 11:44:23
+Run SMASimUtility.exe
+29.10.2026 11:44:23
+End SIM Wrap-up
+Abaqus JOB 10_10 COMPLETED
+Socket error: [Errno 11001] getaddrinfo failed
