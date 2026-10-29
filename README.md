@@ -1,2 +1,2 @@
-# QuseKrigen
-TMM4135 prosjektoppgave
+# TMM413_ prosjektoppgave
+
