@@ -215,9 +215,9 @@ def tri6_shape_function_partials_x_and_y(
     for i in range(3):
         j = cyclic_ijk[i+1]
         N6_px[i] = (4*zeta[i] - 1)*zeta_px[i]
-        N6_px[i+3] = (zeta[j]*4)*zeta_px[i]
-        N6_py[i] = (4*zeta[i] - 1)*zeta_px[i]
-        N6_px[i+3] = (zeta[j]*4)*zeta_py[i]
+        N6_px[i+3] = 4*(zeta[j]*zeta_px[i] + zeta[i]*zeta_px[j])
+        N6_py[i] = (4*zeta[i] - 1)*zeta_py[i]
+        N6_py[i+3] = 4*(zeta[j]*zeta_py[i] + zeta[i]*zeta_py[j])
 
     return N6_px, N6_py
 
@@ -229,15 +229,15 @@ def tri6_Bmatrix(zeta: Sequence[float], ex: list[float], ey: list[float]) -> Arr
 
     # TODO: fill out missing parts (or reformulate completely)
     
-    for j in range(11):
-        Bmatrix[0,j] = nx[j]
-        Bmatrix[2,j] = ny[j]
-        Bmatrix[1,j+1] = ny[j]
-        Bmatrix[2,j+1] = nx[j]
+    for j in range(6):
+        Bmatrix[0,2*j] = nx[j]
+        Bmatrix[2,2*j] = ny[j]
+        Bmatrix[1,2*j+1] = ny[j]
+        Bmatrix[2,2*j+1] = nx[j]
 
     return Bmatrix
 
-print(tri6_Bmatrix([0.2, 0.3, 0.5],))
+# print(tri6_Bmatrix([0.2, 0.3, 0.5],))
 
 def tri6_Kmatrix(
     ex: list[float],
@@ -270,13 +270,19 @@ def tri6_Kmatrix(
     fe = np.zeros((12, 1))
 
     # TODO: fill out missing parts (or reformulate completely)
-
+    
     # TODO: remove/replace this with actual stiffness matrix computation
-    Ke = np.eye(12) * 1.0e6
+    for i in range(3):
+        B = tri6_Bmatrix(zetaInt[i], ex, ey)
+        Ke += A * th * wInt[i] * (B.T @ D @ B)
 
     if eq is not None:
         # TODO: compute the consistent load vector based on the distributed loads eq
-        fe = np.zeros((12, 1))
+        for g in range(3): 
+            N6 = tri6_shape_functions(zetaInt[g])
+            for a in range(6):
+                fe[2*a,] += A*th*wInt[g]*N6[a].T*eq[0]
+                fe[2*a+1,] += A*th*wInt[g]*N6[a].T*eq[1]
 
     return Ke, fe
 
@@ -306,7 +312,9 @@ def tri6_cornerstresses(
     cornerStresses: list[list[float]] = []
     for i in range(3):
         # TODO: Compute the correct corner stresses here
-        cornerStresses.append([(i + 1) * 1.0, (i + 2) * 1.0, (i + 3) * 1.0])
+        B = tri6_Bmatrix(zetaCorner[i], ex, ey)
+        stress = (D @ B @ elDispVec).flatten() #(3,1)
+        cornerStresses.append([stress[0], stress[1], stress[2]])
 
     return cornerStresses
 
