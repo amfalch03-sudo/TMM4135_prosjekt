@@ -10,7 +10,7 @@ import fem_models
 import copy
 
 # Element Type
-numElementNodes = 4  # Valid numbers 3, 4, 6, 9
+numElementNodes = 3  # Valid numbers 3, 4, 6, 9
 
 # Number of nodes: Should be odd numbers in order to handle 9 node quad and 6 node triangle
 numNodesX = 15
@@ -53,7 +53,7 @@ print("Displacement center node right end,  x:{:12.3e}   y:{:12.3e}".format(xC, 
 # Sum uf reaction forces
 R0Sum = np.zeros(2)
 ndofs = len(R0)
-for i in range(ndofs,2):
+for i in range(0,ndofs,2):
     R0Sum[0] += R0[i  ,0]
     R0Sum[1] += R0[i+1,0]
 print("Total reaction force: x:{:12.3e} y:{:12.3e})".format(R0Sum[0],R0Sum[1]))

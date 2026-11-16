@@ -91,7 +91,12 @@ for i in range(3):
     Be = tri.tri6_Bmatrix(zetaInt[i],ex,ey)
     
     print('Be\n', Be)
-    
+
+    # Stivlegemebevegelser skal gi null tøyning
+    print('Be @ rigX:\n', Be @ rigX)
+    print('Be @ rigY:\n', Be @ rigY)
+    print('Be @ rigR:\n', Be @ rigR)
+
     Ex = Be @ constEx
     Ey = Be @ constEy
     G1  = Be @ constGamma1
