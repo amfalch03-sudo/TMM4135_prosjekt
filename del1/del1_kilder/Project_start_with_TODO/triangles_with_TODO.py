@@ -43,7 +43,7 @@ def tri3_Bmatrix(ex: list[float], ey: list[float]) -> Array2D:
     :return  [3 x 6] strain displacement matrix
     """
 
-    A = tri6_area(ex, ey)
+    A = tri3_area(ex, ey)
     A2 = 2.0 * A
 
     cyclic_ijk = [0, 1, 2, 0, 1]  # Cyclic permutation of the nodes i,j,k
@@ -84,19 +84,7 @@ def tri3_Kmatrix(
     :return mat fe: consistent load vector [6 x 1] (if eq!=None)
     """
 
-    A = tri6_area(ex, ey)
-    A2 = 2.0 * A
-
-    cyclic_ijk = [0, 1, 2, 0, 1]  # Cyclic permutation of the nodes i,j,k
-
-    zi_px = np.zeros(3)  # Partial derivative with respect to x
-    zi_py = np.zeros(3)  # Partial derivative with respect to y
-
-    for i in range(3):
-        j = cyclic_ijk[i + 1]
-        k = cyclic_ijk[i + 2]
-        zi_px[i] = (ey[j] - ey[k]) / A2
-        zi_py[i] = (ex[k] - ex[j]) / A2
+    A = tri3_area(ex, ey)
 
     B = tri3_Bmatrix(ex, ey)
 
@@ -132,7 +120,7 @@ def tri3_cornerstresses(
     B = tri3_Bmatrix(ex, ey)
 
     strain = B @ elDispVec
-    stress = D @ strain
+    stress = (D @ strain).flatten()
 
     cornerStresses: list[list[float]] = []
     for inod in range(3):
@@ -160,7 +148,6 @@ def zeta_partials_x_and_y(ex: list[float], ey: list[float]) -> tuple[Array2D, Ar
     zeta_px = np.zeros(3)  # Partial derivative with respect to x
     zeta_py = np.zeros(3)  # Partial derivative with respect to y
 
-    # TODO: fill out missing parts (or reformulate completely)
     zeta_px[0] = (tmp[1,2] - tmp[2,2])/A2
     zeta_px[1] = (tmp[2,2] - tmp[0,2])/A2
     zeta_px[2] = (tmp[0,2] - tmp[1,2])/A2
@@ -189,7 +176,6 @@ def tri6_shape_functions(zeta: Sequence[float]) -> Array2D:
 
     N6 = np.zeros(6)
 
-    # TODO: fill out missing parts (or reformulate completely)
     for i in range(3):
         j = cyclic_ijk[i+1]
 
@@ -211,7 +197,6 @@ def tri6_shape_function_partials_x_and_y(
 
     cyclic_ijk = [0, 1, 2, 0, 1]  # Cyclic permutation of the nodes i,j,k
 
-    # TODO: fill out missing parts (or reformulate completely)
     for i in range(3):
         j = cyclic_ijk[i+1]
         N6_px[i] = (4*zeta[i] - 1)*zeta_px[i]
@@ -227,7 +212,6 @@ def tri6_Bmatrix(zeta: Sequence[float], ex: list[float], ey: list[float]) -> Arr
 
     Bmatrix = np.zeros((3, 12))
 
-    # TODO: fill out missing parts (or reformulate completely)
     
     for j in range(6):
         Bmatrix[0,2*j] = nx[j]
@@ -236,8 +220,6 @@ def tri6_Bmatrix(zeta: Sequence[float], ex: list[float], ey: list[float]) -> Arr
         Bmatrix[2,2*j+1] = nx[j]
 
     return Bmatrix
-
-# print(tri6_Bmatrix([0.2, 0.3, 0.5],))
 
 def tri6_Kmatrix(
     ex: list[float],
@@ -269,15 +251,12 @@ def tri6_Kmatrix(
     Ke = np.zeros((12, 12))
     fe = np.zeros((12, 1))
 
-    # TODO: fill out missing parts (or reformulate completely)
     
-    # TODO: remove/replace this with actual stiffness matrix computation
     for i in range(3):
         B = tri6_Bmatrix(zetaInt[i], ex, ey)
         Ke += A * th * wInt[i] * (B.T @ D @ B)
 
     if eq is not None:
-        # TODO: compute the consistent load vector based on the distributed loads eq
         for g in range(3): 
             N6 = tri6_shape_functions(zetaInt[g])
             for a in range(6):
@@ -311,11 +290,8 @@ def tri6_cornerstresses(
 
     cornerStresses: list[list[float]] = []
     for i in range(3):
-        # TODO: Compute the correct corner stresses here
         B = tri6_Bmatrix(zetaCorner[i], ex, ey)
         stress = (D @ B @ elDispVec).flatten() #(3,1)
         cornerStresses.append([stress[0], stress[1], stress[2]])
 
     return cornerStresses
-
-  
